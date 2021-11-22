@@ -1,0 +1,12 @@
+{
+  "name": "refactoring-2nd-edition-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mintheon/refactoring-2nd-edition-practice.git",
+  "author": "mintheon <mintheon@mintheon.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "jest": "^27.3.1"
+  }
+}
