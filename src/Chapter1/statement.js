@@ -10,18 +10,17 @@ function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID];
-    let thisAmount = amountFor(perf, play);
+    let thisAmount = amountFor(perf, playFor(perf));
 
     //포인트 적립
     volumeCredits += Math.max(perf.audience - 30, 0);
     //희극 관객 5명마다 추가 포인트 제공
-    if ('comedy' === play.type) {
+    if ('comedy' === playFor(perf).type) {
       volumeCredits += Math.floor(perf.audience / 5);
     }
 
     //청구내역을 출력
-    result += `${play.name}: ${format(thisAmount / 100)} (${
+    result += `${playFor(perf).name}: ${format(thisAmount / 100)} (${
       perf.audience
     }석)\n`;
     totalAmount += thisAmount;
@@ -31,6 +30,10 @@ function statement(invoice, plays) {
   result += `적립 포인트: ${volumeCredits}점\n`;
 
   return result;
+}
+
+function playFor(aPerformance) {
+  return plays[aPerformance.playID];
 }
 
 //공연 타입마다의 비용을 계산해준다.
