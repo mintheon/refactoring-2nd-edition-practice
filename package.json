@@ -5,11 +5,15 @@
   "repository": "https://github.com/mintheon/refactoring-2nd-edition-practice.git",
   "author": "mintheon <mintheon@mintheon.com>",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
     "jest": "^27.3.1"
   },
   "scripts": {
     "test": "jest --watchAll --verbose"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-jest": "^27.3.1"
   }
 }
