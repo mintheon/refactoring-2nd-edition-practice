@@ -9,7 +9,7 @@
     "jest": "^27.3.1"
   },
   "scripts": {
-    "test": "jest --watchAll --verbose"
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
