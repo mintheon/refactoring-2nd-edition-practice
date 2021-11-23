@@ -10,7 +10,7 @@ function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf, playFor(perf));
+    let thisAmount = amountFor(perf);
 
     //포인트 적립
     volumeCredits += Math.max(perf.audience - 30, 0);
@@ -36,7 +36,7 @@ function statement(invoice, plays) {
   }
 
   //공연 타입마다의 비용을 계산해준다.
-  function amountFor(aPerformance, play) {
+  function amountFor(aPerformance) {
     let result = 0;
 
     switch (playFor(aPerformance).type) {
