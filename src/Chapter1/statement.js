@@ -30,39 +30,39 @@ function statement(invoice, plays) {
   result += `적립 포인트: ${volumeCredits}점\n`;
 
   return result;
-}
 
-function playFor(aPerformance) {
-  return plays[aPerformance.playID];
-}
-
-//공연 타입마다의 비용을 계산해준다.
-function amountFor(aPerformance, play) {
-  let result = 0;
-
-  switch (play.type) {
-    //비극
-    case 'tragedy':
-      result = 40000;
-      if (aPerformance.audience > 30) {
-        result += 1000 * (aPerformance.audience - 30);
-      }
-      break;
-
-    //희극
-    case 'comedy':
-      result = 30000;
-      if (aPerformance.audience > 20) {
-        result += 10000 + 500 * (aPerformance.audience - 20);
-      }
-      result += 300 * aPerformance.audience;
-      break;
-
-    default:
-      throw new Error(`알 수 없는 장르: ${play.type}`);
+  function playFor(aPerformance) {
+    return plays[aPerformance.playID];
   }
 
-  return result;
+  //공연 타입마다의 비용을 계산해준다.
+  function amountFor(aPerformance, play) {
+    let result = 0;
+
+    switch (playFor(aPerformance).type) {
+      //비극
+      case 'tragedy':
+        result = 40000;
+        if (aPerformance.audience > 30) {
+          result += 1000 * (aPerformance.audience - 30);
+        }
+        break;
+
+      //희극
+      case 'comedy':
+        result = 30000;
+        if (aPerformance.audience > 20) {
+          result += 10000 + 500 * (aPerformance.audience - 20);
+        }
+        result += 300 * aPerformance.audience;
+        break;
+
+      default:
+        throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+    }
+
+    return result;
+  }
 }
 
 module.exports = statement;
