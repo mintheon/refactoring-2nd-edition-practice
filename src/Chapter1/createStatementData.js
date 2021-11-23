@@ -14,28 +14,17 @@ export default function createStatementData(invoice, plays) {
       playFor(aPerformance),
     );
 
-    const result = Object.assign({}, aPerformance); //얕은 복사 수행
+    const result = Object.assign({}, aPerformance);
 
-    result.play = playFor(result); //중간 데이터에 연극 정보를 저장
+    result.play = calculator.play;
     result.amount = calculator.amount;
-    result.volumeCredits = volumeCreditsFor(result);
+    result.volumeCredits = calculator.volumeCredits;
 
     return result;
   }
 
   function playFor(aPerformance) {
     return plays[aPerformance.playID];
-  }
-
-  function volumeCreditsFor(aPerformance) {
-    let volumeCredits = 0;
-    volumeCredits += Math.max(aPerformance.audience - 30, 0);
-
-    if ('comedy' === aPerformance.play.type) {
-      volumeCredits += Math.floor(aPerformance.audience / 5);
-    }
-
-    return volumeCredits;
   }
 
   function totalAmount(data) {
@@ -49,7 +38,7 @@ export default function createStatementData(invoice, plays) {
 
 class PerformanceCalculator {
   constructor(aPerformance, aPlay) {
-    this.performances = aPerformance;
+    this.performance = aPerformance;
     this.play = aPlay;
   }
 
@@ -60,24 +49,35 @@ class PerformanceCalculator {
       //비극
       case 'tragedy':
         result = 40000;
-        if (this.performances.audience > 30) {
-          result += 1000 * (this.performances.audience - 30);
+        if (this.performance.audience > 30) {
+          result += 1000 * (this.performance.audience - 30);
         }
         break;
 
       //희극
       case 'comedy':
         result = 30000;
-        if (this.performances.audience > 20) {
-          result += 10000 + 500 * (this.performances.audience - 20);
+        if (this.performance.audience > 20) {
+          result += 10000 + 500 * (this.performance.audience - 20);
         }
-        result += 300 * this.performances.audience;
+        result += 300 * this.performance.audience;
         break;
 
       default:
-        throw new Error(`알 수 없는 장르: ${this.performances.play.type}`);
+        throw new Error(`알 수 없는 장르: ${this.performance.play.type}`);
     }
 
     return result;
+  }
+
+  get volumeCredits() {
+    let volumeCredits = 0;
+    volumeCredits += Math.max(this.performance.audience - 30, 0);
+
+    if ('comedy' === this.play.type) {
+      volumeCredits += Math.floor(this.performance.audience / 5);
+    }
+
+    return volumeCredits;
   }
 }
