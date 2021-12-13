@@ -1,3 +1,5 @@
+const Producer = require('../Chapter4/Producer');
+
 //Json 데이터로부터 지역 정보를 읽어오는 코드
 class Province {
   constructor(doc) {
@@ -37,7 +39,7 @@ class Province {
     return this._price;
   }
 
-  set price() {
+  set price(arg) {
     this._price = parseInt(arg);
   }
 
@@ -69,13 +71,15 @@ class Province {
     let result = 0;
 
     this.producers
-    .sort((a, b) => a.cost - b.cost)
-    .forEach(p => {
-      const contribution = Math.min(remainingDemand, p.production);
-      remainingDemand -= contribution;
-      result += contribution * p.cost;
-    });
+      .sort((a, b) => a.cost - b.cost)
+      .forEach((p) => {
+        const contribution = Math.min(remainingDemand, p.production);
+        remainingDemand -= contribution;
+        result += contribution * p.cost;
+      });
 
     return result;
   }
 }
+
+module.exports = Province;
