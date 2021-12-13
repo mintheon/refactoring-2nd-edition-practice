@@ -6,7 +6,8 @@
   "author": "mintheon <mintheon@mintheon.com>",
   "license": "MIT",
   "dependencies": {
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "mocha": "^9.1.3"
   },
   "scripts": {
     "test": "jest"
